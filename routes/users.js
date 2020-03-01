@@ -1,9 +1,14 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const db = require('../config/db');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/', function (req, res, next) {
+    db.User.findAll().then((users) => {
+        res.json(users)
+    }).catch((err) => {
+        res.status(400).json({err: 'Something went wrong'})
+    })
+
 });
 
 module.exports = router;

@@ -7,7 +7,6 @@ module.exports = (sequelize, DataTypes) => {
         article_image: DataTypes.STRING
     }, {
         timestamps: true,
-        underscored: true,
-        paranoid: true
+        underscored: true
     });
 };

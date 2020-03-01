@@ -11,7 +11,7 @@ Assuming you already have Node & npm installed locally,
 
 2 Install Dependencies.
 
-``npm install``
+``cd redis_caching_example && npm install``
 
 3 Install mysql, create database.
 ```
