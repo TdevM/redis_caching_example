@@ -7,7 +7,7 @@ Assuming you already have Node & npm installed locally,
 
 1 Clone repository.
 
- ``https://github.com/TdevM/redis_caching_example.git``
+ ``git clone https://github.com/TdevM/redis_caching_example.git``
 
 2 Install Dependencies.
 
