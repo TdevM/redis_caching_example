@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('redis-caching-example:server');
 var http = require('http');
 var models = require('../models');
+const redisClient = require('../config/redis');
 
 
 /**
@@ -36,9 +37,18 @@ models.sequelize.authenticate().then(() => {
     });
     server.on('error', onError);
     server.on('listening', onListening);
+
 }).catch((err) => {
     console.log('Failed to connect to db', err)
 });
+
+redisClient.on('error', (error) => {
+    console.log('redis not connected')
+})
+
+redisClient.on('connect', () => {
+    console.log('redisConnected')
+})
 
 
 /**
