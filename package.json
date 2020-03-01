@@ -1,8 +1,14 @@
 {
   "name": "redis-caching-example",
-  "version": "0.0.0",
-  "private": true,
+  "author": {
+    "name": "Tridev Mishra",
+    "email": "tdevmx@gmail.com",
+    "url": "https://github.com/TdevM"
+  },
+  "version": "0.0.1",
+  "private": false,
   "scripts": {
+    "setup": "source .env && sequelize db:migrate && sequelize db:seed:all",
     "start": "source .env && node ./bin/www"
   },
   "dependencies": {
