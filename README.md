@@ -1,8 +1,8 @@
-#REDIS API response caching
+## REDIS API response caching
 
 Basic example of caching API responses using redis.
 
-#Local setup
+## Local setup
 Assuming you already have Node & npm installed locally,
 
 1 Clone repository.
