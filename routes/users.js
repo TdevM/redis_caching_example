@@ -2,25 +2,39 @@ const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
 const redisClient = require('../config/redis');
-const cacheService = require('../services/cacheService');
+const {checkCache, updateCache} = require('../services/cacheService');
 
-router.get('/:id', cacheService('user'), (req, res, next) => {
+router.get('/:id', checkCache('user'), (req, res, next) => {
     db.User.findOne({
         where: {
             id: req.params.id
         }
     }).then((user) => {
-        redisClient.set(`user:${req.params.id}`, JSON.stringify(user))
-        res.json(user)
+        if (!user) {
+            return res.status(404).json({NotFoundError: 'Resource not found'})
+        }
+        updateCache(`user:${req.params.id}`, JSON.stringify(user), (err, result) => {
+            if (err) {
+                throw new Error(`Failed to process cache service`)
+            }
+            res.json(user)
+        });
     }).catch((err) => {
         res.status(400).json({err: 'Something went wrong'})
     })
 });
 
-router.get('/', cacheService('users'), function (req, res, next) {
+router.get('/', checkCache('users'), (req, res, next) => {
     db.User.findAll().then((users) => {
-        redisClient.set(`users`, JSON.stringify(users))
-        res.json(users)
+        if (!users) {
+            return res.status(404).json({NotFoundError: 'Resource not found'})
+        }
+        updateCache(`users`, JSON.stringify(users), (err, result) => {
+            if (err) {
+                throw new Error(`Failed to process cache service`)
+            }
+            res.json(users)
+        })
     }).catch((err) => {
         res.status(400).json({err: 'Something went wrong'})
     })
