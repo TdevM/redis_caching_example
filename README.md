@@ -31,6 +31,7 @@ export USERNAME=root
 export HOST=localhost
 export DIALECT=mysql
 export REDIS_HOST=localhost
+export REDIS_PORT=6379
 
 ````
 
